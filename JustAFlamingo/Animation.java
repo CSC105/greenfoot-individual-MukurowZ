@@ -16,9 +16,9 @@ public class Animation
         nameSprite = name;
         sprites = new GreenfootImage[allFrames];
         currentFrame = -1;
-        for(int i = 0; i < allFrames; ++i){
-          sprites[i] = new GreenfootImage(name+i+".png");
-          sprites[i].scale(width, height);
+        for(int i = 1; i <= allFrames; ++i){
+          sprites[i-1] = new GreenfootImage(name+i+".png");
+          sprites[i-1].scale(width, height);
         }
     }
     
