@@ -13,7 +13,7 @@ public class Characters extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     
-    private int speed = 7;
+    private int speed = 12;
     private int jumpPower = 27;
     private int fallSpeed = 0;
     private int acceleration = 2;
@@ -64,9 +64,9 @@ public class Characters extends Actor
        }
        else
        {
-       //GreenfootImage mains = new GreenfootImage("Birds/FlamingoWalkRight/Flamingo1.png");
-       //mains.scale(96, 156);
-       //setImage(mains);
+           /*GreenfootImage mains = new GreenfootImage("Birds/FlamingoWalkRight/Flamingo1.png");
+           mains.scale(96, 156);
+           setImage(mains);*/
        }
     }
     public void moveLeft()

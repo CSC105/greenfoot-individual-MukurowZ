@@ -8,7 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Playing extends World
 {
-
+    int objSpeed;
+    double miss;
     /**
      * Constructor for objects of class Playing.
      * 
@@ -24,6 +25,27 @@ public class Playing extends World
         addObject(grass,733,673);
         Characters characters = new Characters();
         addObject(characters,480,360);
+        
     }
-   
+    public void act() 
+    {
+        miss = Math.random()*100;
+        objSpeed = (int)Math.random()*10;
+        checkMiss(objSpeed);
+    }    
+    
+    public void checkMiss(int speed)
+    {
+        if(miss >= 99)
+        {
+            addObject((new MissileLeft(speed)),00,623);
+        }
+        else if(miss >= 98)
+        {
+            addObject((new MissileRight(speed)),960,623);
+        }
+        else
+        {
+        }
+    }
 }

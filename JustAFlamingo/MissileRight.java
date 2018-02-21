@@ -13,13 +13,22 @@ public class MissileRight extends Missile
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     private Animation anim;
-    public MissileRight()
+    Missile missile = new Missile();
+    public MissileRight(int speed)
     {
         anim = new Animation("Entities/Missile/MissileRight", 3, 120, 64);
         setImage(anim.getFrame());
+        missile.setObjSpeed(speed);
     }
+    
     public void act() 
     {
+        move();
         setImage(anim.getFrame());
     }    
+    
+    public void move()
+    {  
+        setLocation(getX() - missile.getObjSpeed(), getY());
+    }
 }

@@ -13,6 +13,7 @@ public class Entities extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     private int speed;
+    private int objSpeed;
     public Entities()
     {
         
@@ -31,4 +32,6 @@ public class Entities extends Actor
     {
         setLocation( getX() + speed, getY() );
     }
+    
+
 }
