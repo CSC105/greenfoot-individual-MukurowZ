@@ -18,27 +18,29 @@ public class Characters extends Actor
     private int fallSpeed = 0;
     private int acceleration = 2;
     
-    // For animation
-    private int currentFrame;
-    private int allFrames;
-    private String nameSprite;
-    private GreenfootImage sprites;
-    
+    private Animation anim;
+    public Characters(){
+      anim = new Animation("Birds/FlamingoWalkRight/Flamingo", 36, 96, 156);
+      setImage(anim.getFrame());
+    }
     public void act() 
     {
+        
+        
        if(Greenfoot.isKeyDown("left") )
        {
-           tryAnimation("Birds/FlamingoWalkLeft/Flamingo", 36, 96, 156);
+           setImage(anim.getFrame());
            moveLeft();
        }
        else if(Greenfoot.isKeyDown("right") )
        {
-           new Animation("Birds/FlamingoWalkRight/Flamingo", 36, 96, 156);
+           setImage(anim.getFrame());
            moveRight();
        }
         
        if(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("space") )
        {
+           setImage(anim.getFrame());
            moveJump();
        }
        else
@@ -56,22 +58,10 @@ public class Characters extends Actor
         
     }
     */
-    
-    public void tryAnimation(String name, int allFrame, int width, int height)
-    {
-        for(int i = 1; i <= allFrame ; ++i)
-        {
-            sprites = new GreenfootImage(name+i+".png");
-            sprites.scale(width,height);
-            setImage(sprites);
-        }
-    }
-   
  
     public void moveLeft()
     {
         setLocation( getX() - speed, getY() );
-        
     }
     
     public void moveRight()
@@ -102,7 +92,9 @@ public class Characters extends Actor
     
     public boolean onGround()
     {
-        Actor under = getOneObjectAtOffset(0, 90  , Grass.class);
+        int height = getImage().getHeight();
+        int lookForGround = (int)(height/2)+5;
+        Actor under = getOneObjectAtOffset( 0, lookForGround  , Grass.class);
         return under != null;
     }
 }

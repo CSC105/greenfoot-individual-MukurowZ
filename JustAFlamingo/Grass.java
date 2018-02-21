@@ -15,6 +15,7 @@ public class Grass extends Actor
     public void act() 
     {
         GreenfootImage mains = new GreenfootImage("Map/Grassfloor.jpg");
+        //mains.drawOval(getX(), getY(), getHeight(), getWidth());
         setImage(mains);
     }
 }
