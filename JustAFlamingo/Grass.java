@@ -14,7 +14,8 @@ public class Grass extends Actor
      */
     public void act() 
     {
-        GreenfootImage mains = new GreenfootImage("Map/Grassfloor.png");
+        GreenfootImage mains = new GreenfootImage("Map/Neongridfloor.png");
+        mains.scale(1280,92);
         setImage(mains);
     }
 }

@@ -1,18 +1,18 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Descriptionplaybutton here.
+ * Write a description of class Pressenter here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Descriptionplaybutton extends GameUI
+public class Pressenter extends MainUI
 {
     /**
-     * Act - do whatever the Descriptionplaybutton wants to do. This method is called whenever
+     * Act - do whatever the Pressenter wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public void act() 
+     public void act() 
     {
         if(Greenfoot.getMouseInfo() != null && Greenfoot.mousePressed(this) )
         {
@@ -23,10 +23,10 @@ public class Descriptionplaybutton extends GameUI
             Greenfoot.setWorld(new Playing());
         }
     }    
-    public Descriptionplaybutton()
+    public Pressenter()
     {
-        GreenfootImage Play = new GreenfootImage("UI/Descriptionplaybutton.png");
-        Play.scale(512,96);
+        GreenfootImage Play = new GreenfootImage("UI/Mainpressenter.png");
+        Play.scale(960,69);
         setImage(Play);
-    }    
+    }     
 }

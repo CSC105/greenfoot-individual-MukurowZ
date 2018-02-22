@@ -13,7 +13,7 @@ public class Characters extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     
-    private int speed = 7;
+    private int speed = 9;
     private int jumpPower = 27;
     private int fallSpeed = 0;
     private int acceleration = 2;
@@ -24,6 +24,8 @@ public class Characters extends Actor
     protected Animation walkingRight;
     private Animation currentAnim;
     private Animation anim;
+    GreenfootSound theme1 = new GreenfootSound("Playtheme/Theme1.mp3");
+    
     public Characters(){
         setWalkingLeft( new Animation( "Birds/FlamingoWalkLeft/Flamingo", 36, 96, 156 ));
         setWalkingRight( new Animation( "Birds/FlamingoWalkRight/Flamingo", 36, 96, 156));
@@ -35,13 +37,60 @@ public class Characters extends Actor
     {
        checkFall();
        checkKey();
+       checkTouch();
+       checkWorld();
     }    
-    /*
-    public void move()
+    
+    
+    // Check this is play world
+    public void checkWorld()
     {
-        
+        if (getWorld() instanceof Playing)
+        {
+            checkMusic();
+        }
     }
-    */
+    //Stop music after die
+    public void stopMusic()
+    {
+        if(theme1.isPlaying())
+        {
+            theme1.stop();
+        }
+    }
+    
+    // Check music
+    public void checkMusic()
+    {
+        if(!theme1.isPlaying())
+        {
+            //theme1.play();
+        }
+    }
+
+    // When touch objects
+    public void checkTouch()
+    {
+        if(isTouching(MissileRight.class))
+        {
+            goToRetry();
+        }
+        if(isTouching(MissileLeft.class))
+        {
+            goToRetry();
+        }
+    }
+    
+    // Go to retry screen
+    public void goToRetry()
+    {
+        Greenfoot.playSound("Characters/hit1.wav");
+        stopMusic();
+        Greenfoot.delay(50);
+        Greenfoot.setWorld(new Retryscreen());
+    }
+    
+    // Check Keyboard
     public void checkKey()
     {
        if(Greenfoot.isKeyDown("left") )
@@ -59,7 +108,6 @@ public class Characters extends Actor
         
        if(Greenfoot.isKeyDown("up") && jumping == false)
        {
-           //setImage(anim.getFrame());
            moveJump();
        }
        else
@@ -69,23 +117,25 @@ public class Characters extends Actor
            setImage(mains);*/
        }
     }
+    
+    //Moving Method
     public void moveLeft()
     {
         setLocation( getX() - speed, getY() );
     }
-    
     public void moveRight()
     {
         setLocation( getX() + speed, getY() );
     }
-    
     public void moveJump()
     {
         fallSpeed = fallSpeed - jumpPower;
         jumping = true;
         fall();
+        //Greenfoot.playSound("Characters/fallsmall.mp3");
     }
  
+    //Falling System
     public void fall()
     {
         setLocation( getX(), getY() + fallSpeed);
@@ -95,7 +145,6 @@ public class Characters extends Actor
         }
         jumping = true;
     }
-    
     public void checkFall()
     {
         if( onGround() )
@@ -104,8 +153,7 @@ public class Characters extends Actor
         }
         else
             fall();
-    }
-    
+    }    
     public boolean onGround()
     {
         int height = getImage().getHeight();
@@ -122,7 +170,6 @@ public class Characters extends Actor
             return true;
         }
     }
-    
     public void moveToGround(Actor ground)
     {
         int groundHeight = ground.getImage().getHeight();
@@ -132,22 +179,21 @@ public class Characters extends Actor
         jumping = false;
     }
 
-
+    // Part of Animation System 
     public void setAnimation(Animation anim){
         this.currentAnim = anim;
     }
-    
+    // Animation Waling System
     public void setWalkingLeft(Animation walkingLeft){
         this.walkingLeft = walkingLeft;
     }
     public void setWalkingRight(Animation walkingRight){
         this.walkingRight = walkingRight;
     }
-  
+    // Get animation System
     public Animation getAnimation(){
         return currentAnim;  
     }
-    
     public Animation getWalkingLeft(){
         return walkingLeft;
     }

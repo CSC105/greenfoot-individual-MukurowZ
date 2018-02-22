@@ -16,7 +16,7 @@ public class MissileRight extends Missile
     Missile missile = new Missile();
     public MissileRight(int speed)
     {
-        anim = new Animation("Entities/Missile/MissileRight", 3, 96, 48); // 120 64
+        anim = new Animation("Entities/Missile/MissileRight", 3, 80, 43); 
         setImage(anim.getFrame());
         setObjSpeed(speed);
     }
