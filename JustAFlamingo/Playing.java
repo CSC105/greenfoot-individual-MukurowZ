@@ -30,19 +30,19 @@ public class Playing extends World
     public void act() 
     {
         miss = Math.random()*100;
-        objSpeed = (int)Math.random()*10;
+        objSpeed = (int)(Math.random()*10)+1;
         checkMiss(objSpeed);
     }    
     
     public void checkMiss(int speed)
     {
-        if(miss >= 99)
+        if(miss >= 99.69997)
         {
-            addObject((new MissileLeft(speed)),00,623);
+            addObject((new MissileLeft(speed)),00,627);
         }
-        else if(miss >= 98)
+        else if(miss >= 98.8999)
         {
-            addObject((new MissileRight(speed)),960,623);
+            addObject((new MissileRight(speed)),960,627);
         }
         else
         {

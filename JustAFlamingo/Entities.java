@@ -25,13 +25,19 @@ public class Entities extends Actor
 
     public void moveLeft()
     {
-        setLocation( getX() - speed, getY() );
+        setLocation( (getX() - getObjSpeed() ), getY() );
     }
-    
     public void moveRight()
     {
-        setLocation( getX() + speed, getY() );
+        setLocation( (getX() + getObjSpeed() ), getY() );
     }
     
-
+    public void setObjSpeed(int speed)
+    {
+        this.objSpeed = speed;
+    }
+    public int getObjSpeed()
+    {
+        return this.objSpeed;
+    }
 }

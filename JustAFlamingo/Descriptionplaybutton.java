@@ -18,6 +18,10 @@ public class Descriptionplaybutton extends GameUI
         {
             Greenfoot.setWorld(new Playing());
         }
+        else if(Greenfoot.isKeyDown("enter") )
+        {
+            Greenfoot.setWorld(new Playing());
+        }
     }    
     public Descriptionplaybutton()
     {
