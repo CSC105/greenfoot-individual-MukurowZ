@@ -22,11 +22,12 @@ public class Missile extends Entities
         
     }
     
+   
     public void preDelete()
     {
         if(isAtEdge())
         {
-            remove
+            //removeObject();
         }
     }
     /*

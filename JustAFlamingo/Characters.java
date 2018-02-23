@@ -91,19 +91,18 @@ public class Characters extends Actor
         Greenfoot.playSound("Characters/hit1.wav");
         stopMusic();
         Greenfoot.delay(50);
-        Greenfoot.setWorld(new Retryscreen());
     }
     
     // Check Keyboard
     public void checkKey()
     {
-       if(Greenfoot.isKeyDown("left") )
+       if(Greenfoot.isKeyDown("left") && !isAtEdge())
        {
            setAnimation(getWalkingLeft());
            setImage(walkingLeft.getFrame());
            moveLeft();
        }
-       else if(Greenfoot.isKeyDown("right") )
+       else if(Greenfoot.isKeyDown("right") && getX() < 950)
        {
            setAnimation(getWalkingRight());
            setImage(walkingRight.getFrame());

@@ -54,7 +54,7 @@ public class Playing extends World
     {
         miss = Math.random()*100;
         objSpeed = (int)(Math.random()*10)+1;
-        checkMiss(objSpeed);
+        //checkMiss(objSpeed);
     }    
     /*
     // Check themesound was play

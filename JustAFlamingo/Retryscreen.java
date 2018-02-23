@@ -6,11 +6,11 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Retryscreen extends World
+public class RetryScreen extends World
 {
 
     GreenfootSound retry = new GreenfootSound("Playtheme/Retry.mp3");
-    public Retryscreen()
+    public RetryScreen()
     {    
         super(960, 720, 1);
         GreenfootImage main = new GreenfootImage("Wallpaper/Maindotwallpaper.png");
