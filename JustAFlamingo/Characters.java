@@ -22,13 +22,17 @@ public class Characters extends Actor
     private GreenfootImage anima;
     protected Animation walkingLeft;
     protected Animation walkingRight;
+    //protected Animation jumper;
     private Animation currentAnim;
     private Animation anim;
-    GreenfootSound theme1 = new GreenfootSound("Playtheme/Theme1.mp3");
-    
+    GreenfootSound theme1 = new GreenfootSound("Playtheme/Theme1.mp3"); 
+    //GreenfootImage mains = new GreenfootImage("Birds/FlamingoWalkRight/Flamingo");
+               
     public Characters(){
         setWalkingLeft( new Animation( "Birds/FlamingoWalkLeft/Flamingo", 36, 96, 156 ));
         setWalkingRight( new Animation( "Birds/FlamingoWalkRight/Flamingo", 36, 96, 156));
+        /*setJumper( new Animation( "Birds/FlamingoWalkRight/Flamingo", 6, 96, 156));
+        mains.scale(96, 156);*/
         
         setAnimation(getWalkingLeft());
         setImage(getWalkingLeft().getFrame());
@@ -105,16 +109,25 @@ public class Characters extends Actor
            setImage(walkingRight.getFrame());
            moveRight();
        }
+       else
+       {
+           //setImage(mains);
+       }
         
        if(Greenfoot.isKeyDown("up") && jumping == false)
        {
            moveJump();
+           /*
+           if(!Greenfoot.isKeyDown("left") && !Greenfoot.isKeyDown("right"))
+           {
+              setAnimation(getJumper());
+              setImage(jumper.getFrame());
+           }
+           */
        }
        else
        {
-           /*GreenfootImage mains = new GreenfootImage("Birds/FlamingoWalkRight/Flamingo1.png");
-           mains.scale(96, 156);
-           setImage(mains);*/
+           
        }
     }
     
@@ -190,6 +203,11 @@ public class Characters extends Actor
     public void setWalkingRight(Animation walkingRight){
         this.walkingRight = walkingRight;
     }
+    /*
+    public void setJumper(Animation jumping){
+        this.jumper = jumper;
+    }
+    */
     // Get animation System
     public Animation getAnimation(){
         return currentAnim;  
@@ -200,5 +218,11 @@ public class Characters extends Actor
     public Animation getWalkingRight(){
         return walkingRight;
     }
+    
+    /*
+    public Animation getJumper(){
+        return jumper;
+    }
+    */
 }
 

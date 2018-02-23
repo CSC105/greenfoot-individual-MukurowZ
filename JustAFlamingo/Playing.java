@@ -27,7 +27,7 @@ public class Playing extends World
     }
     public void addClock()
     {
-        Backtimecounter backtimecounter = new Backtimecounter();
+       /* Back backtimecounter = new Back();
         FirstDigit first = new FirstDigit();
         SecondDigit second = new SecondDigit();
         ThirdDigit third = new ThirdDigit();
@@ -44,8 +44,10 @@ public class Playing extends World
         addObject(fourth, 828,60);
         addObject(colon2, 801,60);
         addObject(fifth, 774,60);
-        addObject(sixth, 747,60);
-        
+        addObject(sixth, 747,60);*/
+        Timecounter timeCounter = new Timecounter();
+        addObject( timeCounter, -100, -100 );
+        timeCounter.setToWorld();
     }
     
     public void act() 
@@ -76,6 +78,7 @@ public class Playing extends World
     
     public void checkMiss(int speed)
     {
+        
         if(miss >= 99.79997)
         {
             addObject((new MissileLeft(speed)),00,600);

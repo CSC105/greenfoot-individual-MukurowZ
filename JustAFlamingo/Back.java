@@ -1,21 +1,22 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class colon here.
+ * Write a description of class Backtimecounter here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class colon extends Timecounter
+public class Back extends GameUI
 {
     /**
-     * Act - do whatever the colon wants to do. This method is called whenever
+     * Act - do whatever the Backtimecounter wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public colon()
+    public Back()
     {
-        GreenfootImage colon = new GreenfootImage("Text/score-11.png");
-        setImage(colon);
+        GreenfootImage backPlate = new GreenfootImage("UI/grayplate.png");
+        backPlate.scale(250, 64);
+        setImage(backPlate);
     }
     public void act() 
     {

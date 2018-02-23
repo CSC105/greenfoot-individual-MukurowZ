@@ -21,6 +21,14 @@ public class Missile extends Entities
     {
         
     }
+    
+    public void preDelete()
+    {
+        if(isAtEdge())
+        {
+            remove
+        }
+    }
     /*
     public void setObjSpeed(int speed)
     {
