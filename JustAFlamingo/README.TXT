@@ -10,3 +10,4 @@ VERSION or DATE:  Alpha 0.0.4
 HOW TO START THIS PROJECT:  Open Greenfoot and click "Scenario" , "New Java Scenario
 AUTHORS:  MukurowZ
 USER INSTRUCTIONS:  none.
+Note### If press Spacebar with Up-arrow, The Flamingo will flying.
