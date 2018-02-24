@@ -22,14 +22,16 @@ public class Missile extends Entities
         
     }
     
-   
-    public void preDelete()
+    /*public void preDelete()
     {
         if(isAtEdge())
         {
-            //removeObject();
+            getWorld().removeObject(this);
         }
     }
+    
+    
+    
     /*
     public void setObjSpeed(int speed)
     {

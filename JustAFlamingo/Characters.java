@@ -18,6 +18,8 @@ public class Characters extends Actor
     private int fallSpeed = 0;
     private int acceleration = 2;
     private boolean jumping;
+    private boolean falling;
+    private boolean lefted = false;
     
     private GreenfootImage anima;
     protected Animation walkingLeft;
@@ -26,13 +28,16 @@ public class Characters extends Actor
     private Animation currentAnim;
     private Animation anim;
     GreenfootSound theme1 = new GreenfootSound("Playtheme/Theme1.mp3"); 
-    //GreenfootImage mains = new GreenfootImage("Birds/FlamingoWalkRight/Flamingo");
-               
+    GreenfootImage mainRight = new GreenfootImage("Birds/FlamingoWalkRight/Flamingo1.png");
+    GreenfootImage mainLeft = new GreenfootImage("Birds/FlamingoWalkLeft/Flamingo1.png");
+    
+                
     public Characters(){
         setWalkingLeft( new Animation( "Birds/FlamingoWalkLeft/Flamingo", 36, 96, 156 ));
         setWalkingRight( new Animation( "Birds/FlamingoWalkRight/Flamingo", 36, 96, 156));
-        /*setJumper( new Animation( "Birds/FlamingoWalkRight/Flamingo", 6, 96, 156));
-        mains.scale(96, 156);*/
+        //setJumper( new Animation( "Birds/FlamingoWalkRight/Flamingo", 6, 96, 156));
+        mainLeft.scale(96,156);
+        mainRight.scale(96,156);
         
         setAnimation(getWalkingLeft());
         setImage(getWalkingLeft().getFrame());
@@ -75,11 +80,7 @@ public class Characters extends Actor
     // When touch objects
     public void checkTouch()
     {
-        if(isTouching(MissileRight.class))
-        {
-            goToRetry();
-        }
-        if(isTouching(MissileLeft.class))
+        if(isTouching(MissileRight.class) || isTouching(MissileLeft.class))
         {
             goToRetry();
         }
@@ -91,6 +92,9 @@ public class Characters extends Actor
         Greenfoot.playSound("Characters/hit1.wav");
         stopMusic();
         Greenfoot.delay(50);
+        
+        getWorld().stopped();
+        getWorld().removeObject(this);
     }
     
     // Check Keyboard
@@ -101,32 +105,30 @@ public class Characters extends Actor
            setAnimation(getWalkingLeft());
            setImage(walkingLeft.getFrame());
            moveLeft();
+           lefted = true;
        }
        else if(Greenfoot.isKeyDown("right") && getX() < 950)
        {
            setAnimation(getWalkingRight());
            setImage(walkingRight.getFrame());
            moveRight();
+           lefted = false;
        }
        else
        {
-           //setImage(mains);
+            if(lefted)
+                setImage(mainLeft);
+            else
+                setImage(mainRight);
        }
         
        if(Greenfoot.isKeyDown("up") && jumping == false)
        {
            moveJump();
-           /*
-           if(!Greenfoot.isKeyDown("left") && !Greenfoot.isKeyDown("right"))
-           {
-              setAnimation(getJumper());
-              setImage(jumper.getFrame());
-           }
-           */
        }
-       else
+       else if(Greenfoot.isKeyDown("space") && falling == true && jumping == true)
        {
-           
+           moveJump();
        }
     }
     
@@ -150,6 +152,7 @@ public class Characters extends Actor
     //Falling System
     public void fall()
     {
+        falling = true;
         setLocation( getX(), getY() + fallSpeed);
         if(fallSpeed <= 9)
         {

@@ -14,6 +14,7 @@ public class Timecounter extends GameUI
      */
     private long startTime;
     private long lastTimeChange;
+    private boolean overNow;
     
     private TimeComponent bg;
     private TimeComponent centiSec1;
@@ -27,6 +28,7 @@ public class Timecounter extends GameUI
     private TimeComponent colon2;  // min: sec
     
     private GreenfootImage[] setNum;
+    
     public Timecounter(){
       super();
       startTime = System.nanoTime();
@@ -64,11 +66,30 @@ public class Timecounter extends GameUI
       getWorld().addObject(min2, 747,60);
     }
     
-    public void act(){
-      if( System.nanoTime() - lastTimeChange > 10000000 ){
-          setTime( toCentiSec( System.nanoTime() - startTime ) );
-          lastTimeChange = System.nanoTime();
-      }
+    public void act()
+    {
+        if(overNow)
+        {
+            
+        }
+        else if(!overNow)
+        {
+            checkDied();
+            runTime();
+        }
+        else
+        {
+            
+        }
+    }
+    
+    public void runTime()
+    {
+        if( System.nanoTime() - lastTimeChange > 10000000 && overNow == false )
+        {
+            setTime( toCentiSec( System.nanoTime() - startTime ) );
+            lastTimeChange = System.nanoTime();
+        }
     }
     
     public void setTime(long currentTime){
@@ -85,11 +106,17 @@ public class Timecounter extends GameUI
       sec2.setCurrentImage( setNum[ currentSec2 ] );
       min1.setCurrentImage( setNum[ currentMin1 ] );
       min2.setCurrentImage( setNum[ currentMin2 ] );
-      
     }
     
     public long toCentiSec(long nanoTime){
       return nanoTime/10000000;
     }
     
+    public void checkDied()
+    {
+        if(getWorld().getObjects(Characters.class).size() == 0)
+        {
+            overNow = true;
+        }
+    }
 }

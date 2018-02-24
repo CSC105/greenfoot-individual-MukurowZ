@@ -8,14 +8,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Playing extends World
 {
-    int objSpeed;
-    double miss;
-    
+    private short count;
+    private int objSpeed;
+    private double miss;
+    private boolean over;
+    GreenfootSound theme1 = new GreenfootSound("Playtheme/Theme1.mp3");
     
     public Playing()
     {    
         super(960, 720, 1); 
-        setBackground("Wallpaper/Greengrid.png"); 
+        setOver(false);
+        setBackground("Map/Lake.png"); 
         Grass grass = new Grass();
         addObject(grass,318,673);
         Grass grass2 = new Grass();
@@ -23,28 +26,13 @@ public class Playing extends World
         Characters characters = new Characters();
         addObject(characters,480,360);
         addClock();
-        
+        theme1.setVolume(50);
+        count = 0;
     }
+    
+    // add time counter
     public void addClock()
     {
-       /* Back backtimecounter = new Back();
-        FirstDigit first = new FirstDigit();
-        SecondDigit second = new SecondDigit();
-        ThirdDigit third = new ThirdDigit();
-        FourthDigit fourth = new FourthDigit();
-        FifthDigit fifth = new FifthDigit();
-        SixthDigit sixth = new SixthDigit();
-        colon colon = new colon();
-        colon colon2 = new colon();
-        addObject(backtimecounter, 850, 60);
-        addObject(first, 936,60);
-        addObject(second, 909,60);
-        addObject(colon, 882,60);
-        addObject(third, 855,60);
-        addObject(fourth, 828,60);
-        addObject(colon2, 801,60);
-        addObject(fifth, 774,60);
-        addObject(sixth, 747,60);*/
         Timecounter timeCounter = new Timecounter();
         addObject( timeCounter, -100, -100 );
         timeCounter.setToWorld();
@@ -52,15 +40,49 @@ public class Playing extends World
     
     public void act() 
     {
-        miss = Math.random()*100;
-        objSpeed = (int)(Math.random()*10)+1;
-        //checkMiss(objSpeed);
-    }    
-    /*
+        if(!over)
+        {
+            miss = Math.random()*100;
+            objSpeed = (int)(Math.random()*10)+1;
+            checkMiss(objSpeed);
+            checkMusic();
+            checkDied();
+        }
+        else if(over && count == 0)
+        {
+            count++;
+            stopMusic();
+            over();
+        }
+        else
+        {
+            
+        }
+    }   
+    
+    public void over()
+    {
+        Gameover over = new Gameover();
+        addObject(over,500,200);
+        RetryButton retry = new RetryButton();
+        addObject(retry, 480, 480);
+        MainMenuButton button = new MainMenuButton();
+        addObject(button, 480, 620);
+    }
+    
+    public void checkDied()
+    {
+        if(getObjects(Characters.class).size() == 0)
+        {
+            over = true;
+            stopped();
+        }
+    }
+    
     // Check themesound was play
     public void checkMusic()
     {
-        if(!theme1.isPlaying())
+        if(!theme1.isPlaying() && over == false)
         {
             theme1.play();
         }
@@ -68,24 +90,32 @@ public class Playing extends World
     //Stop music after die
     public void stopMusic()
     {
-        if(theme1.isPlaying())
+        if(theme1.isPlaying() && over == true)
         {
             theme1.stop();
         }
     }
     
-    */
-    
+    // Get & Set boolean Over
+    public void setOver(boolean over)
+    {
+        this.over = over;
+    }
+    public boolean getOver()
+    {
+        return this.over;
+    }
+     
+    // Spawn missile
     public void checkMiss(int speed)
     {
-        
         if(miss >= 99.79997)
         {
-            addObject((new MissileLeft(speed)),00,600);
+            addObject((new MissileLeft(speed)),00,593);
         }
         else if(miss >= 98.9999)
         {
-            addObject((new MissileRight(speed)),960,600);
+            addObject((new MissileRight(speed)),960,593);
         }
         else
         {

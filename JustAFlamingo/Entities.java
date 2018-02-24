@@ -20,9 +20,19 @@ public class Entities extends Actor
     }
     public void act() 
     {
-        
+        checkTouch();
     }    
-
+    
+    // When touch objects
+    public void checkTouch()
+    {
+        if(isTouching(Characters.class))
+        {
+            getWorld().removeObject(this);
+        }
+    }
+    
+    
     public void moveLeft()
     {
         setLocation( (getX() - getObjSpeed() ), getY() );

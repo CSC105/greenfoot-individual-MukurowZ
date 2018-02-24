@@ -6,8 +6,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Playbutton extends MainUI
+public class Playbutton extends GameUI
 {
+    GreenfootSound main = new GreenfootSound("Playtheme/Main.mp3");
     /**
      * Act - do whatever the Playbutton wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -17,12 +18,14 @@ public class Playbutton extends MainUI
         if(Greenfoot.getMouseInfo() != null && Greenfoot.mousePressed(this) )
         {
             Greenfoot.setWorld(new Playing());
+            main.stop();
         }
     }    
     public Playbutton()
     {
-        GreenfootImage Play = new GreenfootImage("UI/Mainplay.png");
-        Play.scale(390,96);
+        main.play();
+        GreenfootImage Play = new GreenfootImage("UI/PlayButton.png");
+        Play.scale(180,180);
         setImage(Play);
     }
 }

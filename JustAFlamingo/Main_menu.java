@@ -18,7 +18,7 @@ public class Main_menu extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(960, 720, 1); 
         prepare();
-        GreenfootImage main = new GreenfootImage("Wallpaper/Mainnew.png");
+        GreenfootImage main = new GreenfootImage("Wallpaper/Main.png");
         main.scale(960,720);
         setBackground(main);
     }
@@ -30,11 +30,8 @@ public class Main_menu extends World
     private void prepare()
     {
         Playbutton playbutton = new Playbutton();
-        addObject(playbutton,480,340);
+        addObject(playbutton,480,370);
         Pressenter pressenter = new Pressenter();
         addObject(pressenter , 480 , 650);
-        Leaderboard leaderboard = new Leaderboard();
-        addObject(leaderboard, 480, 470);
-        
     }
 }

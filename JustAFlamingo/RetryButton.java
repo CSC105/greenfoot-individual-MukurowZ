@@ -1,18 +1,24 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Pressenter here.
+ * Write a description of class RetryButton here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Pressenter extends GameUI
+public class RetryButton extends GameUI
 {
     /**
-     * Act - do whatever the Pressenter wants to do. This method is called whenever
+     * Act - do whatever the RetryButton wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-     public void act() 
+    public RetryButton()
+    {
+        GreenfootImage retry = new GreenfootImage("UI/Retrybutton.png");
+        retry.scale(960,78);
+        setImage(retry);
+    }
+    public void act() 
     {
         if(Greenfoot.getMouseInfo() != null && Greenfoot.mousePressed(this) )
         {
@@ -23,10 +29,4 @@ public class Pressenter extends GameUI
             Greenfoot.setWorld(new Playing());
         }
     }    
-    public Pressenter()
-    {
-        GreenfootImage Play = new GreenfootImage("UI/Mainpressenter.png");
-        Play.scale(960,69);
-        setImage(Play);
-    }     
 }
