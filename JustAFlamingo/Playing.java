@@ -18,6 +18,7 @@ public class Playing extends World
     {    
         super(960, 720, 1); 
         setOver(false);
+        theme1.setVolume(20);
         setBackground("Map/Lake.png"); 
         Grass grass = new Grass();
         addObject(grass,318,673);
@@ -26,7 +27,6 @@ public class Playing extends World
         Characters characters = new Characters();
         addObject(characters,480,360);
         addClock();
-        theme1.setVolume(50);
         count = 0;
     }
     

@@ -31,6 +31,9 @@ public class Characters extends Actor
     GreenfootImage mainRight = new GreenfootImage("Birds/FlamingoWalkRight/Flamingo1.png");
     GreenfootImage mainLeft = new GreenfootImage("Birds/FlamingoWalkLeft/Flamingo1.png");
     
+    GreenfootSound jumpSound = new GreenfootSound("Characters/8bitJump.mp3");
+   
+    
                 
     public Characters(){
         setWalkingLeft( new Animation( "Birds/FlamingoWalkLeft/Flamingo", 36, 96, 156 ));
@@ -38,6 +41,8 @@ public class Characters extends Actor
         //setJumper( new Animation( "Birds/FlamingoWalkRight/Flamingo", 6, 96, 156));
         mainLeft.scale(96,156);
         mainRight.scale(96,156);
+        
+        jumpSound.setVolume(20);
         
         setAnimation(getWalkingLeft());
         setImage(getWalkingLeft().getFrame());
@@ -47,33 +52,14 @@ public class Characters extends Actor
        checkFall();
        checkKey();
        checkTouch();
-       checkWorld();
     }    
     
-    
-    // Check this is play world
-    public void checkWorld()
-    {
-        if (getWorld() instanceof Playing)
-        {
-            checkMusic();
-        }
-    }
     //Stop music after die
     public void stopMusic()
     {
         if(theme1.isPlaying())
         {
             theme1.stop();
-        }
-    }
-    
-    // Check music
-    public void checkMusic()
-    {
-        if(!theme1.isPlaying())
-        {
-            //theme1.play();
         }
     }
 
@@ -143,6 +129,7 @@ public class Characters extends Actor
     }
     public void moveJump()
     {
+        jumpSound.play();
         fallSpeed = fallSpeed - jumpPower;
         jumping = true;
         fall();

@@ -23,9 +23,10 @@ public class Playbutton extends GameUI
     }    
     public Playbutton()
     {
+        main.setVolume(40);
         main.play();
         GreenfootImage Play = new GreenfootImage("UI/PlayButton.png");
-        Play.scale(180,180);
+        Play.scale(240,240);
         setImage(Play);
     }
 }

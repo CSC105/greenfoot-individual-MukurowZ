@@ -30,8 +30,6 @@ public class Main_menu extends World
     private void prepare()
     {
         Playbutton playbutton = new Playbutton();
-        addObject(playbutton,480,370);
-        Pressenter pressenter = new Pressenter();
-        addObject(pressenter , 480 , 650);
+        addObject(playbutton,480,400);
     }
 }

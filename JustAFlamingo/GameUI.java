@@ -7,10 +7,9 @@ import greenfoot.*;
  */
 public class GameUI extends Actor
 {
-    protected GreenfootImage animNormal;
-    protected GreenfootImage animClick;
     public GameUI()
     {
+        
     }
 
 }
