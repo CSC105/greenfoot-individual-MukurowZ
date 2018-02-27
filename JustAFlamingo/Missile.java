@@ -13,35 +13,37 @@ public class Missile extends Entities
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     private int objSpeed;
+    int charactersX;
     public Missile()
     {
-        
+
     }
+
     public void act() 
     {
-        
+
     }
-    
+
+   
     /*public void preDelete()
     {
-        if(isAtEdge())
-        {
-            getWorld().removeObject(this);
-        }
+    if(isAtEdge())
+    {
+    getWorld().removeObject(this);
     }
-    
-    
+    }
+
     
     /*
     public void setObjSpeed(int speed)
     {
-        this.objSpeed = speed;
+    this.objSpeed = speed;
     }
-    
+
     public int getObjSpeed()
     {
-        return this.objSpeed;
+    return this.objSpeed;
     }
-    */
-   
+     */
+
 }

@@ -13,7 +13,8 @@ public class Playing extends World
     private double miss;
     private boolean over;
     GreenfootSound theme1 = new GreenfootSound("Playtheme/Theme1.mp3");
-    
+
+
     public Playing()
     {    
         super(960, 720, 1); 
@@ -24,12 +25,18 @@ public class Playing extends World
         addObject(grass,318,673);
         Grass grass2 = new Grass();
         addObject(grass,733,673);
+        prepare();
+    }
+    
+    // Prepare
+    public void prepare()
+    {
         Characters characters = new Characters();
         addObject(characters,480,360);
         addClock();
         count = 0;
     }
-    
+
     // add time counter
     public void addClock()
     {
@@ -37,7 +44,7 @@ public class Playing extends World
         addObject( timeCounter, -100, -100 );
         timeCounter.setToWorld();
     }
-    
+
     public void act() 
     {
         if(!over)
@@ -56,10 +63,10 @@ public class Playing extends World
         }
         else
         {
-            
+
         }
     }   
-    
+
     public void over()
     {
         Gameover over = new Gameover();
@@ -69,7 +76,7 @@ public class Playing extends World
         MainMenuButton button = new MainMenuButton();
         addObject(button, 480, 620);
     }
-    
+
     public void checkDied()
     {
         if(getObjects(Characters.class).size() == 0)
@@ -78,7 +85,7 @@ public class Playing extends World
             stopped();
         }
     }
-    
+
     // Check themesound was play
     public void checkMusic()
     {
@@ -95,17 +102,18 @@ public class Playing extends World
             theme1.stop();
         }
     }
-    
+
     // Get & Set boolean Over
     public void setOver(boolean over)
     {
         this.over = over;
     }
+
     public boolean getOver()
     {
         return this.over;
     }
-     
+
     // Spawn missile
     public void checkMiss(int speed)
     {
@@ -119,7 +127,13 @@ public class Playing extends World
         }
         else
         {
-            
+
         }
+    }
+    
+    public void addUsedSkill()
+    {
+        Skill skill = new Skill();
+        addObject(skill, 200, 200);
     }
 }

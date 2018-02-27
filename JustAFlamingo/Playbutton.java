@@ -15,6 +15,7 @@ public class Playbutton extends GameUI
      */
     public void act() 
     {
+        checkPlay();
         if(Greenfoot.getMouseInfo() != null && Greenfoot.mousePressed(this) )
         {
             Greenfoot.setWorld(new Playing());
@@ -28,5 +29,13 @@ public class Playbutton extends GameUI
         GreenfootImage Play = new GreenfootImage("UI/PlayButton.png");
         Play.scale(240,240);
         setImage(Play);
+    }
+    
+    public void checkPlay()
+    {
+        if(!main.isPlaying())
+        {
+            main.play();
+        }
     }
 }
