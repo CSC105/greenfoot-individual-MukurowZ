@@ -20,6 +20,8 @@ public class Characters extends Actor
     private int acceleration = 2;
     private int maxJump = 2;
     private int jumpCount;
+    private int cooldown;
+    private int max_cooldown = 500;
     private short looped;
     private boolean jumping;
     private boolean falling;
@@ -34,12 +36,14 @@ public class Characters extends Actor
     //protected Animation jumper;
     private Animation currentAnim;
     private Animation anim;
-    GreenfootSound theme1 = new GreenfootSound("Playtheme/Theme1.mp3"); 
+    
     GreenfootImage mainRight = new GreenfootImage("Birds/FlamingoWalkRight/Flamingo1.png");
     GreenfootImage mainLeft = new GreenfootImage("Birds/FlamingoWalkLeft/Flamingo1.png");
     GreenfootImage imRight = new GreenfootImage("Birds/FlamingoWalkRight/Flamingo1.png");
     GreenfootImage imLeft = new GreenfootImage("Birds/FlamingoWalkLeft/Flamingo1.png");
     GreenfootImage img;
+    
+    GreenfootSound theme1 = new GreenfootSound("Playtheme/Theme1.mp3"); 
     GreenfootSound jumpSound = new GreenfootSound("Characters/8bitJump.mp3");
     GreenfootSound godMode = new GreenfootSound("Characters/GOBBLE.mp3");
 
@@ -48,7 +52,27 @@ public class Characters extends Actor
         setWalkingRight( new Animation( "Birds/FlamingoWalkRight/Flamingo", 36, 96, 156));
         setImmortalLeft( new Animation("Birds/FlamingoWalkLeft/Flamingo", 36, 96, 156));
         setImmortalRight( new Animation("Birds/FlamingoWalkRight/Flamingo", 36, 96, 156));
+        for(int o = 0; o < 36; ++o)
+        {   
+            if(o%2==0)
+            {
+                setAnimation(getImmortalRight());
+                img = (immortalRight.getFrame());
+                img.setTransparency(70);
+                setAnimation(getImmortalLeft());
+                img = (immortalLeft.getFrame());
+                img.setTransparency(70);
+            }
+            else
+            {   
+                setAnimation(getImmortalRight());
+                img = (immortalRight.getFrame());
+                setAnimation(getImmortalLeft());
+                img = (immortalLeft.getFrame());
+            }
+        }
         immortal = false;
+        cooldown = 300;
         mainLeft.scale(96,156);
         mainRight.scale(96,156);
         imRight.scale(96,156);
@@ -62,6 +86,9 @@ public class Characters extends Actor
 
     public void act() 
     {
+        if(cooldown >= 0 && cooldown < max_cooldown) {
+            cooldown++;
+        }
         checkFall();
         if(!immortal)
         {
@@ -74,13 +101,14 @@ public class Characters extends Actor
             if(!godMode.isPlaying())
             {
                 immortal = false;
+                Actor skill = (Actor)getWorld().getObjects(Skill.class).get(0);
+                getWorld().removeObject(skill);
             }
         }
         else
         {
             
         }
-
     }    
 
     //Stop music after die
@@ -96,9 +124,7 @@ public class Characters extends Actor
     public void checkTouch()
     {
         if(isTouching(MissileRight.class) || isTouching(MissileLeft.class))
-        {
             goToRetry();
-        }
     }
 
     // Go to retry screen
@@ -107,7 +133,6 @@ public class Characters extends Actor
         Greenfoot.playSound("Characters/hit1.wav");
         stopMusic();
         Greenfoot.delay(50);
-
         getWorld().stopped();
         getWorld().removeObject(this);
     }
@@ -146,9 +171,14 @@ public class Characters extends Actor
 
         if(Greenfoot.isKeyDown("s") && !immortal)
         {
-            immortal = true;     
-            godMode.play();
-            playWorld.addUsedSkill();
+            if(cooldown >= max_cooldown)
+            {
+                immortal = true;
+                godMode.play();
+                if( playWorld == null ) playWorld = (Playing) getWorld();
+                playWorld.addUsedSkill();
+                cooldown = 0;
+            }
         }
     }
 
@@ -159,16 +189,6 @@ public class Characters extends Actor
         {
             setAnimation(getImmortalLeft());
             img = immortalLeft.getFrame();
-            if(looped == 0)
-            {
-                img.setTransparency(70);
-                looped++;
-            }
-            else
-            {   
-                img.setTransparency(100);
-                looped = 0;
-            }
             setImage(img);
             moveLeft();
             lefted = true;
@@ -177,16 +197,6 @@ public class Characters extends Actor
         {
             setAnimation(getImmortalRight());
             img = immortalRight.getFrame();
-            if(looped == 0)
-            {
-                img.setTransparency(70);
-                looped++;
-            }
-            else
-            {
-                img.setTransparency(100);
-                looped = 0;
-            }
             setImage(img);
             moveRight();
             lefted = false;
@@ -337,6 +347,10 @@ public class Characters extends Actor
 
     public Animation getImmortalRight(){
         return immortalRight;
+    }
+    
+    public boolean getGodMode(){
+        return immortal;
     }
     /*
     public Animation getJumper(){

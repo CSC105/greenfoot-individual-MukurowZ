@@ -134,6 +134,6 @@ public class Playing extends World
     public void addUsedSkill()
     {
         Skill skill = new Skill();
-        addObject(skill, 200, 200);
+        addObject(skill, 0, 00);
     }
 }

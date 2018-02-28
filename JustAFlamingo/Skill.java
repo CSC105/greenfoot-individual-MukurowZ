@@ -8,18 +8,23 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Skill extends GameUI
 {
-    /**
-     * Act - do whatever the Skill wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    private boolean godMode;
+    
     public Skill()
     {
-        GreenfootImage skill = new GreenfootImage("UI/Skill/Skill.png");
-        skill.scale(100,100);
-        setImage(skill);
+        GreenfootImage skill1 = new GreenfootImage("UI/Skill/Skill.png");
+        GreenfootImage skill2 = new GreenfootImage("UI/Skill/Skill_cooldown.png");
+        skill1.scale(25, 25);
+        setImage(skill1);
     }
     public void act() 
     {
-        // Add your action code here.
-    }    
+        move();
+    }
+    
+    public void move()
+    {
+        Actor character = (Actor)getWorld().getObjects(Characters.class).get(0);
+        setLocation(character.getX(),character.getY()-130);
+    }
 }
