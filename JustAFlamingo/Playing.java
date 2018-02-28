@@ -10,8 +10,13 @@ public class Playing extends World
 {
     private short count;
     private int objSpeed;
+    private int status;
     private double miss;
     private boolean over;
+ 
+    Characters characters = new Characters();
+    Ability ability = new Ability();
+    
     GreenfootSound theme1 = new GreenfootSound("Playtheme/Theme1.mp3");
 
 
@@ -31,8 +36,8 @@ public class Playing extends World
     // Prepare
     public void prepare()
     {
-        Characters characters = new Characters();
         addObject(characters,480,360);
+        addObject(ability, 480, 240);
         addClock();
         count = 0;
     }
@@ -130,10 +135,21 @@ public class Playing extends World
 
         }
     }
-    
+    /*
     public void addUsedSkill()
     {
-        Skill skill = new Skill();
+        Ability ability = new Skill();
         addObject(skill, 0, 00);
     }
+    
+    public int checkStatus()
+    {
+        return characters.getGodMode();
+    }
+    
+    public void setStatus()
+    {
+        
+    }
+    */
 }

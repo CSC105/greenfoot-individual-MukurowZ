@@ -13,6 +13,7 @@ public class Characters extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     Playing playWorld = (Playing)getWorld();
+    Ability ability = new Ability();
     
     private int speed = 9;
     private int jumpPower = 27;
@@ -22,30 +23,36 @@ public class Characters extends Actor
     private int jumpCount;
     private int cooldown;
     private int max_cooldown = 500;
+    private int status = 0;
+    // status 0 is ready
+    // status 1 is use
+    // status 3 is cooldown
     private short looped;
     private boolean jumping;
     private boolean falling;
     private boolean lefted = false;
     private boolean immortal;
+    
+    private boolean isFirstTime;
 
     private GreenfootImage anima;
     protected Animation walkingLeft;
     protected Animation walkingRight;
     protected Animation immortalLeft;
     protected Animation immortalRight;
-    //protected Animation jumper;
     private Animation currentAnim;
     private Animation anim;
     
+    GreenfootImage img;
     GreenfootImage mainRight = new GreenfootImage("Birds/FlamingoWalkRight/Flamingo1.png");
     GreenfootImage mainLeft = new GreenfootImage("Birds/FlamingoWalkLeft/Flamingo1.png");
     GreenfootImage imRight = new GreenfootImage("Birds/FlamingoWalkRight/Flamingo1.png");
     GreenfootImage imLeft = new GreenfootImage("Birds/FlamingoWalkLeft/Flamingo1.png");
-    GreenfootImage img;
     
     GreenfootSound theme1 = new GreenfootSound("Playtheme/Theme1.mp3"); 
     GreenfootSound jumpSound = new GreenfootSound("Characters/8bitJump.mp3");
     GreenfootSound godMode = new GreenfootSound("Characters/GOBBLE.mp3");
+    GreenfootSound error = new GreenfootSound("Effect/error.mp3");
 
     public Characters(){
         setWalkingLeft( new Animation( "Birds/FlamingoWalkLeft/Flamingo", 36, 96, 156 ));
@@ -54,7 +61,7 @@ public class Characters extends Actor
         setImmortalRight( new Animation("Birds/FlamingoWalkRight/Flamingo", 36, 96, 156));
         for(int o = 0; o < 36; ++o)
         {   
-            if(o%2==0)
+            if(o%3==0)
             {
                 setAnimation(getImmortalRight());
                 img = (immortalRight.getFrame());
@@ -71,8 +78,9 @@ public class Characters extends Actor
                 img = (immortalLeft.getFrame());
             }
         }
+        status = 0;
         immortal = false;
-        cooldown = 300;
+        cooldown = 500;
         mainLeft.scale(96,156);
         mainRight.scale(96,156);
         imRight.scale(96,156);
@@ -80,33 +88,47 @@ public class Characters extends Actor
         imRight.setTransparency(70);
         imLeft.setTransparency(70);
         jumpSound.setVolume(20);
+        error.setVolume(30);
+        godMode.setVolume(50);
+        jumpSound.setVolume(25);
         setAnimation(getWalkingLeft());
         setImage(getWalkingLeft().getFrame());
     }
 
     public void act() 
     {
-        if(cooldown >= 0 && cooldown < max_cooldown) {
-            cooldown++;
+        if( getWorld() != null && isFirstTime == false ) {
+            isFirstTime=true;
+            getWorld().addObject(ability, 480, 240);
         }
         checkFall();
         if(!immortal)
         {
             checkKey();
             checkTouch();
+            if( cooldown < max_cooldown && !godMode.isPlaying())
+            {
+                cooldown++;
+                status = 2;
+                ability.setStatus(2);
+            }
+            else
+            {
+                status = 0;
+                ability.setStatus(0);
+            }
         }
         else if(immortal)
         {
             checkKeyImmortal();
             if(!godMode.isPlaying())
             {
+                status = 2;
+                ability.setStatus(2);
                 immortal = false;
-                Actor skill = (Actor)getWorld().getObjects(Skill.class).get(0);
-                getWorld().removeObject(skill);
             }
         }
-        else
-        {
+        else{
             
         }
     }    
@@ -124,7 +146,10 @@ public class Characters extends Actor
     public void checkTouch()
     {
         if(isTouching(MissileRight.class) || isTouching(MissileLeft.class))
+        {
             goToRetry();
+            //ability.removeMe();
+        }
     }
 
     // Go to retry screen
@@ -132,8 +157,7 @@ public class Characters extends Actor
     {
         Greenfoot.playSound("Characters/hit1.wav");
         stopMusic();
-        Greenfoot.delay(50);
-        getWorld().stopped();
+        Greenfoot.delay(10);
         getWorld().removeObject(this);
     }
 
@@ -174,17 +198,22 @@ public class Characters extends Actor
             if(cooldown >= max_cooldown)
             {
                 immortal = true;
+                status = 1;
+                ability.setStatus(1);   // immortal
                 godMode.play();
                 if( playWorld == null ) playWorld = (Playing) getWorld();
-                playWorld.addUsedSkill();
                 cooldown = 0;
             }
+            else 
+                error.play();
         }
     }
 
     //God Mode
     public void checkKeyImmortal()
     {
+        status = 1;
+        ability.setStatus(1);
         if(Greenfoot.isKeyDown("left") && !isAtEdge())
         {
             setAnimation(getImmortalLeft());
@@ -200,6 +229,10 @@ public class Characters extends Actor
             setImage(img);
             moveRight();
             lefted = false;
+        }
+        else if(Greenfoot.isKeyDown("s"))
+        {
+            error.play();
         }
         else
         {
@@ -349,8 +382,8 @@ public class Characters extends Actor
         return immortalRight;
     }
     
-    public boolean getGodMode(){
-        return immortal;
+    public int getStatus(){
+        return this.status;
     }
     /*
     public Animation getJumper(){

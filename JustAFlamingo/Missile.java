@@ -13,6 +13,7 @@ public class Missile extends Entities
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     private int objSpeed;
+    GreenfootImage imgMissile;
     int charactersX;
     public Missile()
     {
@@ -24,16 +25,8 @@ public class Missile extends Entities
 
     }
 
-   
-    /*public void preDelete()
-    {
-    if(isAtEdge())
-    {
-    getWorld().removeObject(this);
-    }
-    }
-
     
+
     /*
     public void setObjSpeed(int speed)
     {

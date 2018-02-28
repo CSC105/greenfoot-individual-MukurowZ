@@ -18,6 +18,7 @@ public class Playbutton extends GameUI
         checkPlay();
         if(Greenfoot.getMouseInfo() != null && Greenfoot.mousePressed(this) )
         {
+            clickSound.play();
             Greenfoot.setWorld(new Playing());
             main.stop();
         }

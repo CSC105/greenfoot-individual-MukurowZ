@@ -13,10 +13,15 @@ public class Gameover extends GameUI
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     GreenfootImage gameover = new GreenfootImage("UI/Gameover.png");
+    
+    GreenfootSound sad = new GreenfootSound("Effect/sad.mp3");
+    
     public Gameover()
     {
+        sad.setVolume(30);
         gameover.scale(350,350);
         setImage(gameover);
+        sad.play();
     }
     public void act() 
     {

@@ -22,10 +22,12 @@ public class RetryButton extends GameUI
     {
         if(Greenfoot.getMouseInfo() != null && Greenfoot.mousePressed(this) )
         {
+            clickSound.play();
             Greenfoot.setWorld(new Playing());
         }
         else if(Greenfoot.isKeyDown("enter") )
         {
+            clickSound.play();
             Greenfoot.setWorld(new Playing());
         }
     }    

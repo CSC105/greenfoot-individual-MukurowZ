@@ -7,6 +7,8 @@ import greenfoot.*;
  */
 public class GameUI extends Actor
 {
+    GreenfootSound clickSound = new GreenfootSound("Effect/click2.mp3");
+    
     public GameUI()
     {
         

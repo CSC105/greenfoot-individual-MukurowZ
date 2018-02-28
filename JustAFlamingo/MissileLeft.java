@@ -25,17 +25,23 @@ public class MissileLeft extends Missile
     {
         moveRight();
         preDelete();
-        setImage(anim.getFrame());
+        setImage(imgMissile);
     }    
        
     // When is at edge
     public void preDelete()
     {
+        imgMissile = anim.getFrame();
+        if(getWorld().getObjects(Characters.class).size() == 0)
+        {
+            imgMissile = anim.getFrame();
+            imgMissile.setTransparency(0);
+            setImage(imgMissile);
+        }
+        
         if( getX() >= 945)
         {
             getWorld().removeObject(this);
-        }
+        } 
     }
-    
-    
 }

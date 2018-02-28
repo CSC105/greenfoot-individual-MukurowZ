@@ -23,6 +23,7 @@ public class MainMenuButton extends GameUI
         if(Greenfoot.getMouseInfo() != null && Greenfoot.mousePressed(this) )
         {
             Greenfoot.setWorld(new Main_menu());
+            clickSound.play();
         }
     }    
 }
